@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+    
+
+<!-- ******************** General parameters ******************** -->
+	<context-param>
+		<param-name>appName</param-name>
+		<param-value>QuizJET</param-value>
+	</context-param>
+	<context-param>
+		<param-name>appDir</param-name>
+		<param-value>/Users/yunhuang/Center/Study/Codes/CodingProjects/Java/QuizJET/QuizJET_FromPET/</param-value>
+		<!-- <param-value>C:\\java\\Tomcat\\webapps\\quizpal\\</param-value> -->
+		<!-- <param-value>/usr/share/tomcat6/webapps/quizpet/</param-value>  -->
+	</context-param>
+	<context-param>
+		<!-- relates to the compiling command -->
+		<param-name>windows</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>compilerHomeDir</param-name>
+		<param-value></param-value>
+		<!-- <param-value>/Library/Java/JavaVirtualMachines/1.6.0_45-b06-451.jdk/Contents/Home/bin/</param-value> -->
+		<!-- <param-value>C:\\Java\\jdk1.6.0_01\\bin\\</param-value> -->
+	</context-param>
+	<context-param>
+		<param-name>reportToUM</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>verbose</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>appID</param-name>
+		<param-value>25</param-value>
+	</context-param>
+	<context-param>
+		<param-name>language</param-name>
+		<param-value>java</param-value>
+		<!-- <param-value>py</param-value>  -->
+		<!-- <param-value>java</param-value> -->
+	</context-param>
+	<context-param>
+		<param-name>userModelURL</param-name>
+		<param-value>http://adapt2.sis.pitt.edu/cbum/um</param-value>
+	</context-param>
+	<context-param>
+		<param-name>usr</param-name>
+		<param-value>adl01</param-value>
+	</context-param>
+		<context-param>
+		<param-name>grp</param-name>
+		<param-value>ADL</param-value>
+	</context-param>
+    
+<!-- ******************** DB parameters ******************** -->
+	<context-param>
+		<param-name>db.driver</param-name>
+		<param-value>com.mysql.jdbc.Driver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.url</param-name>
+		<param-value>jdbc:mysql://localhost:3306/webex21</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.user</param-name>
+		<param-value>root</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.passwd</param-name>
+		<param-value>root</param-value>
+	</context-param>
+	
+    
+<!-- ******************** welcome pages ******************** -->
+  <welcome-file-list>
+    <welcome-file>index.htm</welcome-file>  
+  </welcome-file-list>
+    
+
+<!-- ******************** Java Servlet Mappings ******************** -->
+	<servlet>
+		<servlet-name>EvaluateAnswer</servlet-name>
+		<servlet-class>EvaluateAnswer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EvaluateAnswer</servlet-name>
+		<url-pattern>/EvaluateAnswer</url-pattern>
+	</servlet-mapping> 		
+
+	
+<!-- ******************** JSP Servlet Mappings ******************** -->
+   <servlet>
+    <servlet-name>displayQuiz</servlet-name>
+        <jsp-file>/WEB-INF/jsp/displayQuiz.jsp</jsp-file>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>displayQuiz</servlet-name>
+        <url-pattern>/displayQuiz.jsp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    <servlet-name>displayQuizAns</servlet-name>
+        <jsp-file>/WEB-INF/jsp/displayQuizAns.jsp</jsp-file>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>displayQuizAns</servlet-name>
+        <url-pattern>/displayQuizAns.jsp</url-pattern>
+    </servlet-mapping>
+        
+</web-app>

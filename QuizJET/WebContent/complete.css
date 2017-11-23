@@ -1,0 +1,99 @@
+/* Navigation aid bar*/
+div#s1 navigation_aid
+{
+	background-color:#DDDDDD;	
+}
+
+div#s1 {
+  width: 200px;          /* menu width */
+}
+
+div#s1 ul {
+  background-color: #99CCFF;
+  list-style-type: none; /* get rid of the bullets */
+  padding:0;             /* no padding */
+  margin:0;              /* no margin for IE either */
+}
+
+div#s1 ul li {
+  margin: 0;
+  padding: 0;
+  background-color: #99CCFF;
+  display:block;
+  border-top: 1px solid white; /* lines */
+}
+
+div#s1 ul li a {
+  display: block;         /* lines extend to right, make area clickable */
+  color:  #EE7700;
+  background-color: rgb(120,172,255);
+  padding: 3px 3px 3px 23px;
+  margin:0;
+  text-decoration: none;
+  font-weight: 700;
+  height:15px;           /* hint for IE, alternatively remove whitespace from HTML */
+}
+
+div#s1 ul ul li a {
+  margin-left: 20px;     /* indent level 1 */
+}
+
+div#s1 ul ul ul li a {
+  margin-left: 40px;     /* indent level 2 */
+}
+
+div#s1 li ul, div#s1 li.open li.closed ul {
+  display: none;         /* collapse */
+}
+
+div#s1 li.open ul {
+  display: block;        /* expand */
+}
+ 
+div#s1 ul li.open a {
+  background-image: url(bullet_open.gif);
+  background-repeat: no-repeat;
+}
+
+div#s1 ul li.closed a {
+  background-image: url(bullet_closed.gif);
+  background-repeat: no-repeat;
+}
+
+div#s1 ul li.leaf a {
+  background-image: url(bullet_leaf.gif);
+  background-repeat: no-repeat;
+}
+ 
+div#s1 li.active a {
+  background-position: 0px -20px;
+  color: #FF6600;            /* highlight text */  
+}
+ 
+div#s1 li.active li a {
+  background-position: 0px 0px;
+  color: white;          /* fix lower levels */  
+}
+
+div#s1 ul li a:hover {
+  color: red;
+  background-color: #CCCCCC; /* rollover effect */
+}
+
+div#s1 ul li a.navigation_aid{  
+  color: white;
+  background-color: rgb(120,172,255);
+  padding: 3px 3px 3px 23px;
+  text-decoration: none;
+  font-weight: 300;
+  height:15px;           /* hint for IE, alternatively remove whitespace from HTML */
+}
+
+div#s1 ul li a.navigation_aid:hover{  
+  color: red;
+  background-color: #CCCCCC; /* rollover effect */
+}
+
+div#s1 ul li a.navigation_aid:active{    
+  background-color: #CCCCCC;   
+}
