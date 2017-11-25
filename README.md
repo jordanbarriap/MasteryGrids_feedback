@@ -3,8 +3,38 @@ Students' feedback collection functionality added to Mastery Grids (initially ju
 
 Instructions for preparing the development environment: 
 
-1. Place the folder um-vis-dev2 in your Apache2 html documents folder (e.g. /Library/WebServer/Documents/ in Mac)
+1. Download the latest commit from Github.
 
-2. In your MySQL database, import the webex21 db schema from the data folder (username should be "root", same as the pwd)
+2. Put um-vis-dev2 in htdocs.
 
-3. By using eclipse, run QuizJET as a Dynamic Web Project (it will be running in Tomcat, which uses the port 8080). For checking if it worked or not, please load this URL in your web browser: http://localhost:8080/QuizJET/
+3. Import webex21.sql into PHPMyAdmin. Make sure you have user as root and password as root in the db to match web.xml or change to what you want to use.
+
+4. Import QuizJet folder into Eclipse.
+
+5. Setup Tomcat v7 server. (Note: It must be version 7 in order to be compatible.)
+In web.xml, adjust any necessary settings. 
+
+6. Right click on the QuizJet folder in Eclipse. Go to Properties > Java Build Path > Add Libraries.
+
+7. Add JRE System Library and Server Runtime.
+
+	a. Change this local path.
+
+	<param-value>/Users/yunhuang/Center/Study/Codes/CodingProjects/Java/QuizJET/		QuizJET_FromPET/</param-value>
+
+	b. Make sure you are using 3306 for MySQL or adjust accordingly.
+
+	<param-value>jdbc:mysql://localhost:3306/webex21</param-value>
+
+	c. Make sure the username and password matches to your username and password in 	the db or adjust accordingly.
+
+	<context-param>
+		<param-name>db.user</param-name>
+		<param-value>root</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db.passwd</param-name>
+		<param-value>root</param-value>
+	</context-param>
+
+8. Run it. Go to http://localhost:8080/QuizJET/.
