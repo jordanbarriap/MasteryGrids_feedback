@@ -112,18 +112,55 @@
         <servlet-name>displayQuizAns</servlet-name>
         <url-pattern>/displayQuizAns.jsp</url-pattern>
     </servlet-mapping>
+
+	<!-- ******************** JSP Servlet Mappings ******************** -->
+   <servlet>
+    <servlet-name>displayQuiz</servlet-name>
+        <jsp-file>/WEB-INF/jsp/displayQuiz.jsp</jsp-file>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>displayQuiz</servlet-name>
+        <url-pattern>/displayQuiz.jsp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    <servlet-name>displayQuizAns</servlet-name>
+        <jsp-file>/WEB-INF/jsp/displayQuizAns.jsp</jsp-file>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>displayQuizAns</servlet-name>
+        <url-pattern>/displayQuizAns.jsp</url-pattern>
+    </servlet-mapping>
+    
 <!-- Added by Erin Price: Start -->
+
+    <servlet>
+    <servlet-name>feedbackBefore</servlet-name>
+        <jsp-file>/WEB-INF/jsp/feedbackBefore.jsp</jsp-file>
+    </servlet>
    <servlet-mapping>
         <servlet-name>feedbackBefore</servlet-name>
         <url-pattern>/feedbackBefore.jsp</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>  
+    
+    <servlet>
+    <servlet-name>feedbackCorrect</servlet-name>
+        <jsp-file>/WEB-INF/jsp/feedbackCorrect.jsp</jsp-file>
+    </servlet>  
    <servlet-mapping>
         <servlet-name>feedbackCorrect</servlet-name>
         <url-pattern>/feedbackCorrect.jsp</url-pattern>
     </servlet-mapping> 
+    
+    <servlet>
+    <servlet-name>feedbackIncorrect</servlet-name>
+        <jsp-file>/WEB-INF/jsp/feedbackIncorrect.jsp</jsp-file>
+    </servlet>
    <servlet-mapping>
         <servlet-name>feedbackIncorrect</servlet-name>
         <url-pattern>/feedbackIncorrect.jsp</url-pattern>
     </servlet-mapping>   
-<!-- Added by Erin Price: End -->       
+    
+<!-- Added by Erin Price: End -->   
+	
 </web-app>
