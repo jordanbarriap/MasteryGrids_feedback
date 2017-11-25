@@ -12,11 +12,10 @@ Instructions for preparing the development environment:
 4. Import QuizJet folder into Eclipse.
 
 5. Setup Tomcat v7 server. (Note: It must be version 7 in order to be compatible.)
-In web.xml, adjust any necessary settings. 
 
-6. Right click on the QuizJet folder in Eclipse. Go to Properties > Java Build Path > Add Libraries.
+6. Right click on the QuizJet folder in Eclipse. Go to Properties > Java Build Path > Add Libraries. Add JRE System Library and Server Runtime.
 
-7. Add JRE System Library and Server Runtime.
+7. In web.xml, adjust any necessary settings. 
 
 	a. Change this local path.
 
