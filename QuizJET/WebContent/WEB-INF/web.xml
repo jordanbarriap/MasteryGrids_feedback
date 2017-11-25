@@ -112,5 +112,18 @@
         <servlet-name>displayQuizAns</servlet-name>
         <url-pattern>/displayQuizAns.jsp</url-pattern>
     </servlet-mapping>
-        
+<!-- Added by Erin Price: Start -->
+   <servlet-mapping>
+        <servlet-name>feedbackBefore</servlet-name>
+        <url-pattern>/feedbackBefore.jsp</url-pattern>
+    </servlet-mapping>    
+   <servlet-mapping>
+        <servlet-name>feedbackCorrect</servlet-name>
+        <url-pattern>/feedbackCorrect.jsp</url-pattern>
+    </servlet-mapping> 
+   <servlet-mapping>
+        <servlet-name>feedbackIncorrect</servlet-name>
+        <url-pattern>/feedbackIncorrect.jsp</url-pattern>
+    </servlet-mapping>   
+<!-- Added by Erin Price: End -->       
 </web-app>
