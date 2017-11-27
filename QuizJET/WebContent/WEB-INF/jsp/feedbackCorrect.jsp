@@ -45,11 +45,11 @@ Updated: Nov 26, 2017
 			<br/>
 			<!-- TO DO: Connect these tags to the database instead of this manual list -->
 			<!-- TO DO: Add actions to these buttons -->
-			<button type="button" name="tagIncorrect1">Too Difficult</button>
-			<button type="button" name="tagIncorrect2">Need to Ask Professor</button><br/>
-			<button type="button" name="tagIncorrect3">Did Not Learn in Class</button>
-			<button type="button" name="tagIncorrect4">Not Clear</button><br/>
-			<button type="button" name="tagIncorrect5">Time-Consuming</button>
+			<button type="button" name="tagCorrect1">Too Difficult</button>
+			<button type="button" name="tagCorrect2">Need to Ask Professor</button><br/>
+			<button type="button" name="tagCorrect3">Did Not Learn in Class</button>
+			<button type="button" name="tagCorrect4">Not Clear</button><br/>
+			<button type="button" name="tagCorrect5">Time-Consuming</button>
 		</div>
 	<br/>
 		<div id="comment">
@@ -57,7 +57,7 @@ Updated: Nov 26, 2017
 			Comment on this question and how you solved it:
 			</label>
 			<br/>
-			<textarea name="correctcomment" rows="5" placeholder="Comment here on how you solved the question"></textarea>
+			<textarea name="commentCorrect" rows="5" placeholder="Comment here on how you solved the question"></textarea>
 		</div>
 		
 		<div id="submit">
