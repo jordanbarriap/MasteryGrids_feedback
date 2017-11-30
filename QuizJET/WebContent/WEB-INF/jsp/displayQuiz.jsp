@@ -6,8 +6,6 @@
 <%@ page import="java.util.Enumeration"%>
 <%@ page import="org.apache.commons.io.FileUtils"%>
 
-
-
 <link href="quizjet.css" rel="stylesheet" type="text/css" />
 <link href="tab.css" rel="stylesheet" type="text/css" />
 <SCRIPT type="text/javascript" src="tab.js"></SCRIPT>
@@ -30,11 +28,19 @@ webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
 <!-- end WebFX Layout Includes -->
 
 <!-- begin tab pane -->
-<div class="tab-pane" id="article-tab">
 
+<div class="tab-pane" id="concepts-tab">
+
+
+
+</div>
+
+<div class="tab-pane" id="article-tab">
 <script type="text/javascript">
 tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 </script>
+
+
 
 <%      
 		//TODO: use configuration; why it doesn't throw exception using wrong user name and password?
@@ -50,7 +56,7 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
        		 								  getServletContext().getInitParameter("db.passwd"));
         Statement statement = connection.createStatement();  
       	
-    	String dirDelim = windows ? "\\\\" : "/";
+        String dirDelim = windows ? "\\\\" : "/";
         String fileSurfix = "." + language;
         String onlineCompileDir = appDir + "online_compile" + dirDelim;//appDir + 
         String extraClassDir = appDir + "class" + dirDelim;//appDir + 
@@ -112,7 +118,8 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
             folderSurfix = usr;
         }    
         
-        String rdfID = request.getParameter("rdfID");    
+        String rdfID = request.getParameter("rdfID");
+        out.print(rdfID);
         String query = "select QuizID,Code,MinVar,MaxVar,AnsType,QuesType from ent_jquiz where rdfID = '"+rdfID+"'";      
         rs = statement.executeQuery(query);
         if (verbose)
@@ -126,7 +133,17 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
             quesType =  rs.getInt("QuesType");
             quizID = rs.getInt("QuizID");
         }  
-            
+     
+        //Mohammed
+        ResultSet rs10 = null;
+        String text="TestRec";
+        String query10 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
+        rs10 = statement.executeQuery(query10);
+        
+        while (rs10.next()) {
+     	   out.print("<input class='concepts-checkbox line"+rs10.getString("sline")+"' type='checkbox' value='line"+rs10.getString("sline")+"' onclick='checkConcept(this)'><span id="+rs10.getString("sline")+">"+rs10.getString("concept") +"</span><br>");
+        }
+        
         Random randomNumbers = new Random(); // random number generator
         Integer P =  min + (int) (randomNumbers.nextInt((max - min) + 1));//ori: min + randomNumbers.nextInt( max+1 ); //Returns a pseudorandom, uniformly distributed int value between 0 (inclusive) and the specified value (exclusive), drawn from this random number generator's sequence.           
         int position=0;
@@ -142,7 +159,7 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
             ClassID=rs1.getInt("ClassID");//not used later                    
             flag=1;//is useful later to indicate there are multiple classes
         }
-           
+        
         String sql2 = "select * from ent_class c, rel_quiz_class r where c.ClassID = r.ClassID and r.QuizID= '"+quizID+"' "; 
         if (verbose)
             System.out.println(sql2);
@@ -167,77 +184,22 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 		codeStr = codeStr.replace("_Param", Integer.toString(P)).replace("<", "&lt;");
 		if (!codeStr.endsWith("\n"))
 			codeStr += "\n";
-		//System.out.println("After:\n" + codeStr);
-		//InputStream in = codeBlob.getBinaryStream();
-		//int length = (int) codeBlob.length();
-		//int bufferSize = 1024;
-		//byte[] buffer = new byte[bufferSize];  
-        //String evalAnsServlet = getServletContext().getInitParameter("evalAnsServlet");
-        //String breakline_text="";    
-        /* while ((length = in.read(buffer)) != -1) {    
-          StringBuffer textBf = new StringBuffer(new String(buffer));
-          String text = new String(textBf);
-          text = text.replace("\r\n", "\n").replace("\r", "\n").replace("\n\n", "\n");
-          int loc = text.indexOf('\n',position); 
-          //System.out.println("Code:\n" + text);
-          int linecount = 0;                                           
-          while(loc >= 0){                   
-                  //text.replace(loc, loc+1,"");                    
-            loc = (new String(text)).indexOf('\n',position);//don't delete                 
-            String line = "";
-            if (loc>position){       
-              line = text.substring(position,loc);
-              if (language.equals("py"))
-              	line += "\n";
-                     
-              int  b = line.indexOf("_Param");
-              int  b2 = line.lastIndexOf("_Param");
-              //TODO: now assumes at most 2 parameters in one line
-              if (b>0 && b==b2){                
-                  line= line.substring(0,b) + P + line.substring(b+6);                    
-              }                    
-              else if(b>0 && b2>b){
-                  line= line.substring(0,b) + P + line.substring(b+6,b2) + P +line.substring(b2+6);
-              }                                        
-              linecount = linecount + 1;
-              
-              //for Question Type 3
-              if (QuesType==3){
-                  out.print("<font color=blue><b>"+linecount+"</b></font>    ");
-                  out.println("<span style=background-color:#DDDDDD>"+line+"</span><br>");
-              }else {
-                  codePart+=line;  //add up for the compiling file
-                  
-                  //2008.09 fix ArrayList<TYPE>
-                  char[] chars = line.toCharArray();
-                  StringBuffer buffer1 = new StringBuffer(chars.length);    
-                  for (int index = 0; index < chars.length; index++) {
-                            char ch1 = chars[index];              
-                            if (ch1 == '<')
-                            {   buffer1.append("&lt;");
-                            }else{
-                              buffer1.append(ch1);
-                          }                           
-                      }
-                      line = buffer1.toString();                
-                      out.print(line); //print each line of the program question
-              }                                                                                                                                  
-                                              
-                      //codePart+=line;    move it up to the else bracket                
-           }                    
-           position=loc+1;                
-       }      */
-       //System.out.println("codePart:\n" + codePart);
        String[] lines = codeStr.split("\n");
        String checkboxLines = "";
+       //Mohammed
        for(int i=0;i<lines.length-1;i++){
-    	   checkboxLines = checkboxLines+"<input class='line-checkbox' type='checkbox' value='line"+i+"' onclick='checkLine(this)'><span id='line"+i+"'>"+lines[i]+"</span><br>";
+    	   if(!lines[i].replace(" ", "").equals(""))
+    	   {
+    	   out.print( checkboxLines+"<input class='line-checkbox line"+i+"' type='checkbox' value='line"+i+"' onclick='checkLine(this)'><span id='line"+i+"'>"+lines[i]+"</span><br>");
        }
-       //out.print(codeStr);
-       out.print(checkboxLines);
+    	   else
+    	   {
+        	   out.print(  "<span id='line"+i+"'>"+lines[i]+"</span><br>");
+    	   }
+       }
+       
        out.println("<form method=post>");   
        String submitString = "<br><input type=submit value=Submit name=submitButton onclick=submitFunction(this.form,1)>";// + "," + evalAnsServlet + ")>";
-       //System.out.println("submitString:\n" + submitString);
        if(quesType==1){
            out.println("<font color=blue>What is the final value of <b>result</b>?</font><br>");
            out.println("<input type=text name=inputans size=7>" + submitString);
@@ -329,6 +291,9 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 	%>
 
 </div>
+<div id="concepts">
+
+</div>
 <!-- end tab pane -->
 
 <!-- end webfx-main-body -->
@@ -348,13 +313,35 @@ if (request.getParameter("svc").indexOf("subproblem") >= 0){
 <script language="JavaScript">
 //<!-- 
 
+
 //start code added by @Jordan
 function checkLine(checkbox){
 	var line = checkbox.value;
+	if(checkbox.checked){ concepts-checkbox
+		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
+	document.getElementsByClassName("concepts-checkbox "+line)[0].checked=true;
+
+
+	}else{
+		document.getElementById(line).setAttribute("style", "background-color: none");
+		document.getElementsByClassName("concepts-checkbox "+line)[0].checked=false;
+		
+	}
+}
+//Mohammed
+function checkConcept(checkbox){
+	var line = checkbox.value;
 	if(checkbox.checked){
 		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
+		console.log(document.getElementsByClassName("line-checkbox "+line)[0]);
+		document.getElementsByClassName("line-checkbox "+line)[0].checked=true;
+		//document.getElementsByName(line)[0].setAttribute("style", "background-color: #ffb3b3");
+	
 	}else{
-		document.getElementById(line).setAttribute("style", "background-color: none;");
+		document.getElementById(line).setAttribute("style", "background-color: none");
+		document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
+		//document.getElementsByName(line)[0].setAttribute("style", "background-color: none");
+
 	}
 }
 

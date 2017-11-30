@@ -112,25 +112,10 @@
         <servlet-name>displayQuizAns</servlet-name>
         <url-pattern>/displayQuizAns.jsp</url-pattern>
     </servlet-mapping>
-
-	<!-- ******************** JSP Servlet Mappings ******************** -->
-   <servlet>
-    <servlet-name>displayQuiz</servlet-name>
-        <jsp-file>/WEB-INF/jsp/displayQuiz.jsp</jsp-file>
-    </servlet>
-   <servlet-mapping>
-        <servlet-name>displayQuiz</servlet-name>
-        <url-pattern>/displayQuiz.jsp</url-pattern>
-    </servlet-mapping>
     
-    <servlet>
-    <servlet-name>displayQuizAns</servlet-name>
-        <jsp-file>/WEB-INF/jsp/displayQuizAns.jsp</jsp-file>
-    </servlet>
-   <servlet-mapping>
-        <servlet-name>displayQuizAns</servlet-name>
-        <url-pattern>/displayQuizAns.jsp</url-pattern>
-    </servlet-mapping>
+    
+<!-- ******************** JSP Servlet Mappings ******************** -->
+
     
 <!-- Added by Erin Price: Start -->
 
