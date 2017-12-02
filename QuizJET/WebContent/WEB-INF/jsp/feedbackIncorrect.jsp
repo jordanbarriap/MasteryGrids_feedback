@@ -25,7 +25,7 @@ Updated: Nov 26, 2017
 	<!-- TO DO: Submit the form and store in the db -->
 	<form name="feedbackIncorrect" action="">
 
-		<div id="concept">
+		<div id="incorrect-concept">
 			<label>
 				In this quiz, you will practice the following concepts. Please select
 				any concepts or click on lines of codes that are difficult or
@@ -38,7 +38,7 @@ Updated: Nov 26, 2017
 			<input type="checkbox" name="concept" id="concept3" value="Variables"> Variables
 		</div>
 	<br/>
-		<div id="tag">
+		<div class="tag">
 			<label>
 				How do you feel about this question?
 			</label>
@@ -52,7 +52,7 @@ Updated: Nov 26, 2017
 			<button type="button" name="tagIncorrect5">Time-Consuming</button>
 		</div>
 	<br/>
-		<div id="comment">
+		<div class="comment">
 			<label>
 			Comment on this question and what is difficult:
 			</label>
@@ -60,7 +60,7 @@ Updated: Nov 26, 2017
 			<textarea name="incorrectcomment" rows="5" placeholder="Comment here on what is difficult or confusing about the question"></textarea>
 		</div>
 		
-		<div id="submit">
+		<div class="submit">
 			<button type="submit">Submit Feedback</button>
 		</div>
 		
