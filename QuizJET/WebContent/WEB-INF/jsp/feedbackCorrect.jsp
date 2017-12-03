@@ -7,6 +7,14 @@ Updated: Nov 26, 2017
 --%>
 
 <%@ page language="java"%>
+<%@ page import="java.sql.*" %>    
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.Random" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Enumeration"%>
+<%@ page import="org.apache.commons.io.FileUtils"%>
+
+<%@ page language="java"%>
 
 <!-- TO DO: Create a CSS3 stylesheet -->
 <link href="feedback.css" rel="stylesheet" type="text/css" />
@@ -21,47 +29,118 @@ Updated: Nov 26, 2017
 </head>
 
 <body>
+<%
+String rdfID=request.getParameter("rdfID");
 
+Connection connection = null;
+connection = DriverManager.getConnection(getServletContext().getInitParameter("db.url"),
+			  getServletContext().getInitParameter("db.user"),
+			  getServletContext().getInitParameter("db.passwd"));
+
+Statement statement = connection.createStatement(); 
+
+ResultSet rs1 = null;
+ResultSet rs2 = null;
+ResultSet rs3 = null;
+
+int quizID=0;
+
+
+String query1 = "select QuizID from ent_jquiz where rdfID = '"+rdfID+"'";      
+rs1 = statement.executeQuery(query1);
+
+  
+while (rs1.next()) {
+    quizID = rs1.getInt("QuizID");
+}%>
 	<!-- TO DO: Submit the form and store in the db -->
 	<form name="feedbackCorrect" action="">
+	
+	<div>
+	<label>
+	Well done, your answer is correct! Please, tell us how did you solve the question in order to help your peers that are struggling on it.
+	</label>
 
 		<div id="concept">
+		<div>
+		
+		<div>
+<!-- 		An icon goes here. 
+ -->		
+ </div>
+		<div> 
 			<label>
-				In this quiz, you will practice the following concepts. Please select
-				any concepts or click on lines of codes that are difficult or
-				confusing.
+				1. Please select any concepts that have been difficult for you or select the lines of code that have been confusing or difficult to understand.
 			</label>
 			<br/>
 			<!-- TO DO: Connect these checkboxes to the concepts in the question and highlight the corresponding code -->
-			<input type="checkbox" name="concept" id="concept1" value="Array"> Array
-			<input type="checkbox" name="concept" id="concept2" value="While Loop"> While Loop
-			<input type="checkbox" name="concept" id="concept3" value="Variables"> Variables
-		</div>
+			<%
+			        String query2 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
+        rs2 = statement.executeQuery(query2);
+        
+        while (rs2.next()) {
+     	   out.print("<input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'><span class="+rs2.getString("sline")+">"+rs2.getString("concept") +"</span><br>");
+        }
+        %>
+        </div>
+        </div>
+        </div>
+        
 	<br/>
 		<div id="tag">
+		<div>
+<!-- 		An icon goes here. 
+ -->		
+ </div>
+		<div>
 			<label>
-				How do you feel about this question?
+				2. How would you describe the problem that you are having with this quiz (choose one or more tags)?
 			</label>
 			<br/>
-			<!-- TO DO: Connect these tags to the database instead of this manual list -->
-			<!-- TO DO: Add actions to these buttons -->
-			<button type="button" name="tagCorrect1">Too Difficult</button>
-			<button type="button" name="tagCorrect2">Need to Ask Professor</button><br/>
-			<button type="button" name="tagCorrect3">Did Not Learn in Class</button>
-			<button type="button" name="tagCorrect4">Not Clear</button><br/>
-			<button type="button" name="tagCorrect5">Time-Consuming</button>
-		</div>
+			</div>
+			</div>
+			<div>
+			<%
+			//The query will be updated once a new table is created in the database.
+
+		String query3 = "SELECT * FROM correct_scenario_tags";      
+        rs3 = statement.executeQuery(query3);
+        
+        while (rs3.next()) {
+     	   out.print("<button type='button' class='tag_buttons' id='"+rs3.getString("tagID")+"' onclick='checkTag(this)'>"+rs3.getString("tagName")+"</button><br>");
+        }
+        %>
+   <script language="JavaScript">
+        
+   function checkTag(button){
+		var id=button.id;
+		var tempColor=button.style.backgroundColor;
+		console.log(button.style);
+		console.log(tempColor);
+		if(tempColor!='rgb(255, 179, 179)'){
+			document.getElementById(id).setAttribute("style", "background-color: #ffb3b3");
+
+			}else{
+			document.getElementById(id).setAttribute("style", "background-color: none");
+
+			}
+	}
+        </script>
+        </div>
 	<br/>
+	<div>
 		<div id="comment">
 			<label>
-			Comment on this question and how you solved it:
+               3. Please, leave a comment that could guide or help to your classmates that are trying to solve this problem
 			</label>
 			<br/>
-			<textarea name="commentCorrect" rows="5" placeholder="Comment here on how you solved the question"></textarea>
+			<textarea name="commentCorrect" rows="5" placeholder="Comment here on what is difficult or confusing about the question."></textarea>
 		</div>
 		
 		<div id="submit">
 			<button type="submit">Submit Feedback</button>
+		</div>
+		</div>
 		</div>
 		
 	</form>

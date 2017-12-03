@@ -9,10 +9,14 @@
 <link href="quizjet.css" rel="stylesheet" type="text/css" />
 <link href="tab.css" rel="stylesheet" type="text/css" />
 <SCRIPT type="text/javascript" src="tab.js"></SCRIPT>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
 <!-- WebFX Layout Include -->
 <script type="text/javascript">
-//if (top.vis) top.vis.actLoad();
 
 var articleMenu= new WebFXMenu;
 articleMenu.left  = 384;
@@ -24,6 +28,10 @@ articleMenu.add(new WebFXMenuItem("Supplemental Class", "javascript:showArticleT
 webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
 
 </script>
+<div id="container"> 
+
+ 
+  <div id="left" style="float:left; width:50%;">
 <div class="webfx-main-body">
 <!-- end WebFX Layout Includes -->
 
@@ -31,8 +39,7 @@ webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
 
 <div class="tab-pane" id="concepts-tab">
 
-
-
+        
 </div>
 
 <div class="tab-pane" id="article-tab">
@@ -119,7 +126,6 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
         }    
         
         String rdfID = request.getParameter("rdfID");
-        out.print(rdfID);
         String query = "select QuizID,Code,MinVar,MaxVar,AnsType,QuesType from ent_jquiz where rdfID = '"+rdfID+"'";      
         rs = statement.executeQuery(query);
         if (verbose)
@@ -133,17 +139,7 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
             quesType =  rs.getInt("QuesType");
             quizID = rs.getInt("QuizID");
         }  
-     
-        //Mohammed
-        ResultSet rs10 = null;
-        String text="TestRec";
-        String query10 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
-        rs10 = statement.executeQuery(query10);
-        
-        while (rs10.next()) {
-     	   out.print("<input class='concepts-checkbox line"+rs10.getString("sline")+"' type='checkbox' value='line"+rs10.getString("sline")+"' onclick='checkConcept(this)'><span id="+rs10.getString("sline")+">"+rs10.getString("concept") +"</span><br>");
-        }
-        
+    
         Random randomNumbers = new Random(); // random number generator
         Integer P =  min + (int) (randomNumbers.nextInt((max - min) + 1));//ori: min + randomNumbers.nextInt( max+1 ); //Returns a pseudorandom, uniformly distributed int value between 0 (inclusive) and the specified value (exclusive), drawn from this random number generator's sequence.           
         int position=0;
@@ -186,7 +182,6 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 			codeStr += "\n";
        String[] lines = codeStr.split("\n");
        String checkboxLines = "";
-       //Mohammed
        for(int i=0;i<lines.length-1;i++){
     	   if(!lines[i].replace(" ", "").equals(""))
     	   {
@@ -291,12 +286,20 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 	%>
 
 </div>
-<div id="concepts">
 
-</div>
 <!-- end tab pane -->
 
 <!-- end webfx-main-body -->
+</div>
+</div>
+<div class="tab-row">
+  <div id="left" style="float:left; width:50%;">
+  <jsp:include page="feedbackIncorrect.jsp">
+    <jsp:param name="rdfID" value='<%=request.getParameter("rdfID")%>' />
+</jsp:include> 
+</div>
+
+</div>
 </div>
 
 <!-- JULIO: remote load of a page that will male the visualization of MG refresh -->
@@ -311,42 +314,34 @@ if (request.getParameter("svc").indexOf("subproblem") >= 0){
 %>
 
 <script language="JavaScript">
-//<!-- 
 
-
-//start code added by @Jordan
 function checkLine(checkbox){
 	var line = checkbox.value;
-	if(checkbox.checked){ concepts-checkbox
+	if(checkbox.checked){
 		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
 	document.getElementsByClassName("concepts-checkbox "+line)[0].checked=true;
-
-
+	
 	}else{
 		document.getElementById(line).setAttribute("style", "background-color: none");
 		document.getElementsByClassName("concepts-checkbox "+line)[0].checked=false;
 		
 	}
 }
-//Mohammed
+
 function checkConcept(checkbox){
 	var line = checkbox.value;
 	if(checkbox.checked){
 		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
 		console.log(document.getElementsByClassName("line-checkbox "+line)[0]);
 		document.getElementsByClassName("line-checkbox "+line)[0].checked=true;
-		//document.getElementsByName(line)[0].setAttribute("style", "background-color: #ffb3b3");
-	
+
 	}else{
 		document.getElementById(line).setAttribute("style", "background-color: none");
 		document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
-		//document.getElementsByName(line)[0].setAttribute("style", "background-color: none");
 
 	}
 }
 
-//Code for connecting the iframe with the feeback section
-//addEventListener support for IE8
 function bindEvent(element, eventName, eventHandler) {
     if (element.addEventListener) {
         element.addEventListener(eventName, eventHandler, false);
