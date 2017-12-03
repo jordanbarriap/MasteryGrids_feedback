@@ -4,7 +4,7 @@ Feedback Before
 This is the page that will display feedback before answering a question.
 By: Erin Price
 Created: Nov 25, 2017
-Updated: Nov 26, 2017
+Updated: Dec 01, 2017
 --%>
 
 <%--
@@ -67,6 +67,7 @@ while (rs1.next()) {
         %>
 
 	<form name="feedbackBefore" action="">
+<<<<<<< HEAD
 		<div id="concept">
 		<div>
 		<div>
@@ -93,6 +94,25 @@ while (rs1.next()) {
         %>
         </div>
         </div>
+=======
+		<div id="before-concept">
+			<div id="before-concept">
+                    <div class="icon">
+                        <img src="pen.png" id="pen-icon"/>
+                    </div>
+                    <div class="text">
+                        <h3>In this quiz, you will practice the following concepts: </h3>
+                        <p>Please select any concepts or click on lines of codes that are difficult or confusing.</p>	
+                    </div>    
+                </div>
+
+                <!-- TO DO: Connect these checkboxes to the concepts in the question and highlight the corresponding code -->
+                <div class="problem-concepts">
+                    <input type="checkbox" name="concept" id="concept1" value="Array"> Array
+                    <input type="checkbox" name="concept" id="concept2" value="While Loop"> While Loop
+                    <input type="checkbox" name="concept" id="concept3" value="Variables"> Variables
+                </div>
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 	</form>
 </body>
 </html>

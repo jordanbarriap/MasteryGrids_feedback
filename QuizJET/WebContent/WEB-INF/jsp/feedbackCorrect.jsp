@@ -61,6 +61,7 @@ while (rs1.next()) {
 	Well done, your answer is correct! Please, tell us how did you solve the question in order to help your peers that are struggling on it.
 	</label>
 
+<<<<<<< HEAD
 		<div id="concept">
 		<div>
 		
@@ -69,6 +70,9 @@ while (rs1.next()) {
  -->		
  </div>
 		<div> 
+=======
+		<div id="correct-concept">
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 			<label>
 				1. Please select any concepts that have been difficult for you or select the lines of code that have been confusing or difficult to understand.
 			</label>
@@ -87,12 +91,16 @@ while (rs1.next()) {
         </div>
         
 	<br/>
+<<<<<<< HEAD
 		<div id="tag">
 		<div>
 <!-- 		An icon goes here. 
  -->		
  </div>
 		<div>
+=======
+		<div class="tag">
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 			<label>
 				2. How would you describe the problem that you are having with this quiz (choose one or more tags)?
 			</label>
@@ -128,8 +136,12 @@ while (rs1.next()) {
         </script>
         </div>
 	<br/>
+<<<<<<< HEAD
 	<div>
 		<div id="comment">
+=======
+		<div class="comment">
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 			<label>
                3. Please, leave a comment that could guide or help to your classmates that are trying to solve this problem
 			</label>
@@ -137,7 +149,7 @@ while (rs1.next()) {
 			<textarea name="commentCorrect" rows="5" placeholder="Comment here on what is difficult or confusing about the question."></textarea>
 		</div>
 		
-		<div id="submit">
+		<div class="submit">
 			<button type="submit">Submit Feedback</button>
 		</div>
 		</div>

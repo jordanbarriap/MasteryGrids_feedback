@@ -61,10 +61,14 @@ while (rs1.next()) {
 It seems that you are having some problems in solving this quiz. Please let us know in what are you struggling in order to help you with a hint.	</label>
 	</div>
 
+<<<<<<< HEAD
 		<div id="concept">
 		<div>
 		</div>
 		<div>
+=======
+		<div id="incorrect-concept">
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 			<label>
 1. Please select any concepts that have been difficult for you or select the lines of code that have been confusing or difficult to understand.			</label>
 			<br/>
@@ -81,7 +85,7 @@ It seems that you are having some problems in solving this quiz. Please let us k
         </div>
         
 	<br/>
-		<div id="tag">
+		<div class="tag">
 			<label>
 2. How would you describe the problem that you are having with this quiz (choose one or more tags)			</label>
 			<br/>
@@ -114,7 +118,7 @@ It seems that you are having some problems in solving this quiz. Please let us k
         
 		</div>
 	<br/>
-		<div id="comment">
+		<div class="comment">
 			<label>
                3. Please, leave a comment that could guide or help to your classmates that are trying to solve this problem
 			</label>
@@ -122,9 +126,14 @@ It seems that you are having some problems in solving this quiz. Please let us k
 			<textarea name="commentCorrect" rows="5" placeholder="Comment here on what is difficult or confusing about the question."></textarea>
 		</div>
 		
+<<<<<<< HEAD
 		<div id="submit">
 			<button type="submit">Submit and get a hint!</button>
 		</div>
+=======
+		<div class="submit">
+			<button type="submit">Submit Feedback</button>
+>>>>>>> ff096b7c6d4f84698fd95c95daa4154ea31cf75a
 		</div>
 	</form>
 </body>
