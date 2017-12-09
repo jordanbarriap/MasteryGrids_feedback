@@ -95,4 +95,12 @@
     <servlet-name>feedbackIncorrect</servlet-name>
     <url-pattern>/feedbackIncorrect.jsp</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>test</servlet-name>
+    <jsp-file>/WEB-INF/jsp/test.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>test</servlet-name>
+    <url-pattern>/test.jsp</url-pattern>
+  </servlet-mapping>
 </web-app>

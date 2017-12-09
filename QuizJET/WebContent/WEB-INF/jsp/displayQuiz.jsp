@@ -292,13 +292,15 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
 <!-- end webfx-main-body -->
 </div>
 </div>
-<div class="tab-row">
+<%-- <div class="tab-row">
   <div id="left" style="float:left; width:50%;">
   <jsp:include page="feedbackIncorrect.jsp">
     <jsp:param name="rdfID" value='<%=request.getParameter("rdfID")%>' />
 </jsp:include> 
-</div>
-
+</div> --%>
+<p>Send Message: <button id="message_button">Hi parent</button></p>
+<p>Got Message:</p>
+<div id="results"></div>
 </div>
 </div>
 
