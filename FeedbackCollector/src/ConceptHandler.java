@@ -32,7 +32,7 @@ public class ConceptHandler extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         try {
-        	dbInterface dbconnection = new dbInterface(getServletContext().getInitParameter("db.url"),getServletContext().getInitParameter("db.user"),getServletContext().getInitParameter("db.passwd"));
+        	DBInterface dbconnection = new DBInterface(getServletContext().getInitParameter("db.url"),getServletContext().getInitParameter("db.user"),getServletContext().getInitParameter("db.passwd"));
         	dbconnection.openConnection();
         	Class.forName(getServletContext().getInitParameter("db.driver"));
 			String actID = request.getParameter("actID");

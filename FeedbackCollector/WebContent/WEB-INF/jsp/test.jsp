@@ -7,8 +7,27 @@
 <%@ page import="java.util.Random" %>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Enumeration"%>
+
 <% 
-	String rdfID=request.getParameter("rdfID");
+	DBInterface dbconnection = new DBInterface(getServletContext().getInitParameter("db.url"),getServletContext().getInitParameter("db.user"),getServletContext().getInitParameter("db.passwd"));
+	dbconnection.openConnection();
+	Class.forName(getServletContext().getInitParameter("db.driver"));
+	String actID = request.getParameter("actID");
+	System.out.println("actID");
+	String provider = request.getParameter("provider");
+	ResultSet result = null;
+	
+	ArrayList<String> arr = new ArrayList<String>();
+	String query = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+actID+"'"; 
+	result = dbconnection.executeQuery(query); 
+	while (result.next()) {//if only one class, the query will return nothing 
+		System.out.println(result.getString("concept"));
+		arr.add(result.getString("concept"));
+	}
+	//Here we serialize the stream to a String.
+    final String output = arr.toString();
+	
+	/* String rdfID=request.getParameter("rdfID");
 	Connection connection = null;
 	connection = DriverManager.getConnection(getServletContext().getInitParameter("db.url"),
 				  getServletContext().getInitParameter("db.user"),
@@ -22,7 +41,7 @@
 	  
 	while (rs1.next()) {
 	    quizID = rs1.getInt("QuizID");
-	} 
+	}  */
 %>
 
 	<form name="feedbackBefore" action="">
@@ -42,14 +61,13 @@
 			</div>
 			<div>
 			<!-- TO DO: Connect these checkboxes to the concepts in the question and highlight the corresponding code -->
-			<%
-			        String query2 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
+<%-- 		<%
+		String query2 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
         rs2 = statement.executeQuery(query2);
-        
         while (rs2.next()) {
      	   out.print("<input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'><span id="+rs2.getString("sline")+">"+rs2.getString("concept") +"</span><br>");
         }
-        %>
+        %> --%>
         </div>
         </div>
 		<div id="before-concept">

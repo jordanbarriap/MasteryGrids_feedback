@@ -1,6 +1,6 @@
 import java.sql.*; 
 import java.util.*;
-public class dbInterface {
+public class DBInterface {
 	protected String dbstring;
 	protected String dbuser;
 	protected String dbpass;
@@ -9,7 +9,7 @@ public class dbInterface {
 	protected Statement stmt = null; 
 	protected ResultSet rs = null;
 	
-	public dbInterface(String connurl, String user, String pass){
+	public DBInterface(String connurl, String user, String pass){
 		dbstring = connurl;
 		dbuser = user;
 		dbpass = pass;
