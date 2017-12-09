@@ -8,6 +8,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Enumeration"%>
 
+
 <% 
 	DBInterface dbconnection = new DBInterface(getServletContext().getInitParameter("db.url"),getServletContext().getInitParameter("db.user"),getServletContext().getInitParameter("db.passwd"));
 	dbconnection.openConnection();
