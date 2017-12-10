@@ -8,6 +8,7 @@
 
 <link href="quizjet.css" rel="stylesheet" type="text/css" />
 <link href="tab.css" rel="stylesheet" type="text/css" />
+<link href="feedback.css" rel="stylesheet" type="text/css" />
 <SCRIPT type="text/javascript" src="tab.js"></SCRIPT>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -185,7 +186,8 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
        for(int i=0;i<lines.length-1;i++){
     	   if(!lines[i].replace(" ", "").equals(""))
     	   {
-    	   out.print( checkboxLines+"<input class='line-checkbox line"+i+"' type='checkbox' value='line"+i+"' onclick='checkLine(this)'><span id='line"+i+"'>"+lines[i]+"</span><br>");
+    	   //out.print( checkboxLines+"<input class='line-checkbox line line"+i+"' type='checkbox' value='line"+i+"' onclick='checkLine(this)'><span id='line"+i+"'>"+lines[i]+"</span><br>");
+    		out.print( checkboxLines+"<span id='line"+i+"'>"+lines[i]+"</span><br>");
        }
     	   else
     	   {
@@ -330,7 +332,7 @@ function checkLine(checkbox){
 	}
 }
 
-function checkConcept(checkbox){
+/* function checkConcept(checkbox){
 	var line = checkbox.value;
 	if(checkbox.checked){
 		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
@@ -342,7 +344,7 @@ function checkConcept(checkbox){
 		document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
 
 	}
-}
+} */
 
 function bindEvent(element, eventName, eventHandler) {
     if (element.addEventListener) {
@@ -362,7 +364,19 @@ var results = document.getElementById('results'),
     messageButton = document.getElementById('message_button');
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
-    results.innerHTML = e.data;
+	var message = e.data;
+	var stringArray = message.split(" ");
+	if(stringArray.length>0){
+		var action = stringArray[0];
+		if(action == "concept"){
+			for(var i=1;i<stringArray.length;i++){
+				var highlightedLine = stringArray[i];
+				console.log(highlightedLine);
+				$("#"+highlightedLine).addClass("selected-line");
+			}
+		}
+	}
+    //results.innerHTML = e.data;
 });
 
 // Send random message data on every button click

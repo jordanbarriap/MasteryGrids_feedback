@@ -122,3 +122,7 @@
 
 /* Submitted Feedback */
 
+.selected-line{
+	background-color: red;
+}
+
