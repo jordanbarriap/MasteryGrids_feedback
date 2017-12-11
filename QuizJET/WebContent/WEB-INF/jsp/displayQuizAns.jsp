@@ -62,6 +62,35 @@ webfxMenuBar.add(new WebFXMenuButton("Article Menu", null, null, articleMenu));
 
 <script type="text/javascript">
 tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
+
+//@@Jordan
+// addEventListener support for IE8
+function bindEvent(element, eventName, eventHandler) {
+    if (element.addEventListener) {
+        element.addEventListener(eventName, eventHandler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + eventName, eventHandler);
+    }
+}
+// Send a message to the parent
+var sendMessage = function (msg) {
+    // Make sure you are sending a string, and to stringify JSON
+    window.parent.postMessage(msg, '*');
+};
+/*var results = document.getElementById('results'),
+    messageButton = document.getElementById('message_button');*/
+// Listen to messages from parent window
+bindEvent(window, 'message', function (e) {
+    //results.innerHTML = e.data;
+    console.log(e.data);
+});
+// Send random message data on every button click
+/*bindEvent(messageButton, 'click', function (e) {
+    var random = Math.random();
+    sendMessage('' + random);
+});*/
+//@@Jordan
+
 </script>
 
 <%	    
@@ -315,10 +344,23 @@ tabPane.addTabPage( document.getElementById( "intro-page" ) );
 	     out.print("<form method=post>");	          	     	     
 	     if(quesType==1){
 	     	if(showFeedback) {
-	     		if(request.getParameter("res").equals("1"))
+	     		if(request.getParameter("res").equals("1")){
 	     			out.println("<font size=4 color=blue><b>CORRECT!</b></font><br><br>");
-		      	else
+	     			%>
+					<script> 
+		     			console.log("Correct");
+		     			sendMessage("correct");
+	     			</script>
+	     			<%
+	     		}else{
 		     		out.println("<font size=4 color=red><b>WRONG!</b></font><br><br>");
+		     		%>
+		     		<script>
+			     		console.log("Wrong");
+		     			sendMessage("wrong");
+	     			</script>
+	     			<%
+	     		}
 		     	out.println("<b>Your Answer: </b><br>"+request.getParameter("ans")+"<br>");
 	     		out.println("<b>Correct Answer: </b><br>"+request.getParameter("c")+"<br>");
 	     	}else{
@@ -341,11 +383,24 @@ tabPane.addTabPage( document.getElementById( "intro-page" ) );
 		 */
 	     	}else if (quesType==2){ 	        
 	        if(showFeedback) {
-	     		if(request.getParameter("res").equals("1"))
+	     		if(request.getParameter("res").equals("1")){
 	     			out.println("<font size=4 color=blue><b>CORRECT!</b></font><br><br>");
-	  	   		else
+	     			%> 
+	     			<script> 
+		     			console.log("Correct");
+		     			sendMessage("correct");
+	     			</script>
+	     			<% 
+	     		}else{
 	     			out.println("<font size=4 color=red><b>WRONG!</b></font><br><br>");
-       			out.println("<b>Your Answer: </b><br>"+replacedUserAns+"<br>");
+	     			%> 
+					<script>
+			     		console.log("Wrong");
+		     			sendMessage("wrong");
+	     			</script>
+	     			<%
+	     		}
+	     		out.println("<b>Your Answer: </b><br>"+replacedUserAns+"<br>");
         		out.println("<b>Correct Answer: </b><br>"+replacedCorrectAns+"<br>");			     		
 	     	}else{
 	     		out.println("<b>Your Answer: </b><br>"+replacedUserAns+"<br>");
@@ -491,6 +546,7 @@ function submitFunction(obj,i){//}, functionName) {
    obj.submit()
    }
 //-->
+
 </script>  
 
 

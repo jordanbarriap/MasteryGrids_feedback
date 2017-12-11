@@ -12,7 +12,8 @@
 	</context-param>
 	<context-param>
 		<param-name>appDir</param-name>
-		<param-value>/Users/yunhuang/Center/Study/Codes/CodingProjects/Java/QuizJET/QuizJET_FromPET/</param-value>
+		<param-value>/Users/pawsres1/MasteryGrids_feedback/QuizJET/</param-value>
+		<!-- <param-value>/Users/yunhuang/Center/Study/Codes/CodingProjects/Java/QuizJET/QuizJET_FromPET/</param-value>-->
 		<!-- <param-value>C:\\java\\Tomcat\\webapps\\quizpal\\</param-value> -->
 		<!-- <param-value>/usr/share/tomcat6/webapps/quizpet/</param-value>  -->
 	</context-param>

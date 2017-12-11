@@ -300,10 +300,6 @@ tabPane = new WebFXTabPane( document.getElementById( "article-tab" ), true );
     <jsp:param name="rdfID" value='<%=request.getParameter("rdfID")%>' />
 </jsp:include> 
 </div> --%>
-<p>Send Message: <button id="message_button">Hi parent</button></p>
-<p>Got Message:</p>
-<div id="results"></div>
-</div>
 </div>
 
 <!-- JULIO: remote load of a page that will male the visualization of MG refresh -->
@@ -360,8 +356,8 @@ var sendMessage = function (msg) {
     window.parent.postMessage(msg, '*');
 };
 
-var results = document.getElementById('results'),
-    messageButton = document.getElementById('message_button');
+/*var results = document.getElementById('results'),
+    messageButton = document.getElementById('message_button');*/
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
 	var message = e.data;
@@ -380,10 +376,10 @@ bindEvent(window, 'message', function (e) {
 });
 
 // Send random message data on every button click
-bindEvent(messageButton, 'click', function (e) {
+/*bindEvent(messageButton, 'click', function (e) {
     var random = Math.random();
     sendMessage('' + random);
-});
+});*/
 
 //end @Jordan
 
