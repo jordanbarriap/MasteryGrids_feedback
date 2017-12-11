@@ -1,0 +1,139 @@
+/* FEEDBACK BEFORE ANSWER CSS */
+
+#before-concept {
+    width: 100%;
+    height: 75px;
+    background-color: #E3EDF7;
+    text-align: left;
+    border: solid 1px #A9D0F3;
+    font-family: helvetica;
+    padding: 5px;
+}
+
+#before-concept h3 {
+    font-size: 14px;
+}
+
+#before-concept p {
+    font-size: 10px;
+    color: #4ca5e6;
+}
+
+.icon {
+    margin: 20px;
+    float:left;
+}
+
+#pen-icon {
+    width: 50px;
+}
+
+.text {
+    float:left;
+}
+
+.problem-concepts {
+    padding: 20px 0 20px 90px;
+    border: solid 1px #A9D0F3;
+    width: 100%;
+    
+}
+
+/* FEEDBACK INCORRECT CSS */
+/* Did Not Submit Feedback */
+
+.concept{
+    background-color: #E6E6E6;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px 5px 5px;  
+}
+
+.concepts-checkbox {
+   margin-right: 10px; 
+}
+
+#incorrect-concept {
+    width: ;
+    height: ;
+    background-color: #FDEEC8;
+    text-align: left;
+    border: solid 1px #A9D0F3;
+}
+
+#warning-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+.tag {
+    width: ;
+    height: ;
+    text-align: left;
+    border: solid 1px #A9D0F3;
+}
+
+#question-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+#click-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+.comment {
+    width: ;
+    height: ;
+    text-align: left;
+    border: solid 1px #A9D0F3;
+}
+
+#comment-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+#feedback-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+/* Submitted Feedback (Pre-hint Reveal) */
+
+#thumbsup-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+#lightbulg-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+/* Submitted Feedback (Pre-hint Reveal) */
+
+
+/* FEEDBACK CORRECT CSS */
+/* Did Not Submit Feedback */
+
+#shield-icon {
+    width: ;
+    height: ;
+    margin: ;
+}
+
+/* Submitted Feedback */
+
+.selected-line{
+	background-color: red;
+}
+

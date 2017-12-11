@@ -78,7 +78,7 @@ It seems that you are having some problems in solving this quiz. Please let us k
         rs2 = statement.executeQuery(query2);
         
         while (rs2.next()) {
-     	   out.print("<input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'><span class="+rs2.getString("sline")+">"+rs2.getString("concept") +"</span><br>");
+     	   out.print("<span class="+rs2.getString("sline")+"><input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'>" + rs2.getString("concept") +"</span><br>");
         }
         %>
         </div>
