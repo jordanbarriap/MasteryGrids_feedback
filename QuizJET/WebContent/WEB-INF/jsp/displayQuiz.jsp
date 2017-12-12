@@ -360,9 +360,9 @@ var sendMessage = function (msg) {
     messageButton = document.getElementById('message_button');*/
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
-	var message = e.data;
+	var message = e.data.trim();
 	var stringArray = message.split(" ");
-	if(stringArray.length>0){
+	if(stringArray.length>1){
 		var action = stringArray[0];
 		if(action == "concept"){
 			for(var i=1;i<stringArray.length;i++){
@@ -370,6 +370,10 @@ bindEvent(window, 'message', function (e) {
 				console.log(highlightedLine);
 				$("#"+highlightedLine).addClass("selected-line");
 			}
+		}
+	}else{
+		if (message == "mouseout"){
+			$(".selected-line").removeClass("selected-line");
 		}
 	}
     //results.innerHTML = e.data;

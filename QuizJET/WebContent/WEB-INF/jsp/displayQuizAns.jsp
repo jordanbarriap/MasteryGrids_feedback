@@ -279,7 +279,20 @@ tabPane.addTabPage( document.getElementById( "intro-page" ) );
 		            position=loc+1;	            
 	         }         */
 	         
-      	  out.println(codeStr + "");
+      	  //out.println(codeStr + "");
+        String[] lines = codeStr.split("\n");
+         String checkboxLines = "";
+         for(int i=0;i<lines.length-1;i++){
+      	   if(!lines[i].replace(" ", "").equals(""))
+      	   {
+      	   out.print( checkboxLines+"<input class='line-checkbox line line"+i+"' type='checkbox' value='line"+i+"' onclick='checkLine(this)'><span id='line"+i+"'>"+lines[i]+"</span><br>");
+      		//out.print( checkboxLines+"<span id='line"+i+"'>"+lines[i]+"</span><br>");
+         }
+      	   else
+      	   {
+          	   out.print(  "<span id='line"+i+"'>"+lines[i]+"</span><br>");
+      	   }
+         }
 
 	      //2008.04.10 replace space&break line into symbols
 	      String userAns = "";   				 

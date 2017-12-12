@@ -55,7 +55,21 @@
 	//out.print("topic id "+topicID);
 	
 %>
-
+ <!–– Feedback HEADING Section -->
+	<div id='incorrect-heading'>
+	  <img id='information-icon'>
+	
+	  <div class="heading-text">
+	    <h3>
+	        Need Help?	
+	    </h3>
+	    <h4>
+	      Share your thoughts on this problem to <span class='highlight'>get a hint</span>
+	    </h4>
+	  </div>
+	
+	</div>
+<br/>
 <div id="before-feedback">
 <div id="before-explanation">
 <!-- 		An icon goes here.
@@ -101,24 +115,12 @@
         		lineClasses = lineClasses + "line"+ lineList.get(i) + " ";
         	}
         	//out.print("<input class='concepts-checkbox "+lineClasses+"' type='checkbox' value='"+lineClasses+"' onclick='checkConcept(this)'><span id="+concept+">"+concept+"</span>");
-        	out.print("<div class='concept-tag'><span id="+concept+" class='concept "+lineClasses+"'onmouseover='selectConcept(this)'>"+concept+"&emsp;</span><span class='glyphicon glyphicon-question-sign'></span><span onclick='changeColor(this)' class='glyphicon glyphicon-ok-sign glyph-check'></span></div>");
+        	out.print("<div class='concept-tag'><span id="+concept+" class='concept "+lineClasses+"' onmouseover='selectConcept(this)' onmouseout='unselectConcept(this)'>"+concept+"&emsp;</span><span class='glyphicon glyphicon-question-sign'></span><span onclick='changeColor(this)' class='glyphicon glyphicon-ok-sign glyph-check'></span></div>");
         }
         %>
 </div>
-<div class='buttons'>
-   <button class='btn' id='more-feedback' onclick='switchFeedback()'>Share More</button>
-   <button class='btn' id='submit-btn' type="submit">Submit</button>
-   <p id='encouragement'>
-     <strong>Send your feedback and see a hint!</strong>
-   </p>
-   <br/>
-
-   <!–– Connect this link to the before feedback page -->
-   <!–– For this demo only clicking this link advances screens, due to JSFiddle button wackiness -->
-   <a href='#' onclick='switchFeedback()'>Back to Concepts</a>
- </div>
 </div>
-<div id="correct-feedback">
+<div id="correct-feedback-1">
 <div id="correct-explanation">
 <!-- 		An icon goes here.
  -->		
@@ -139,22 +141,23 @@
 %>
 </div>
 </div>
-<div id="wrong-feedback">
- <!–– Feedback HEADING Section -->
-	<div id='incorrect-heading'>
-	  <img id='information-icon'>
-	
-	  <div class="heading-text">
-	    <h3>
-	        Need Help?	
-	    </h3>
-	    <h4>
-	      Share your thoughts on this problem to <span class='highlight'>get a hint</span>
-	    </h4>
-	  </div>
-	
-	</div>
-<br/>
+<div id="wrong-feedback-1">
+<div id="incorrect-concept">
+
+            <img id="question-icon">
+
+            <div class='concept-text'>
+              <h3>
+                <strong>What</strong> was confusing or difficult?		
+              </h3>
+              <p>
+                Click on one or more of the concepts below or specific lines of code on the left
+              </p>
+            </div>
+
+
+            <br/>
+</div>
 <div id="wrong-concepts">
 <%
 for(String concept: conceptsInAppearanceOrder){
@@ -171,7 +174,139 @@ for(String concept: conceptsInAppearanceOrder){
 %>
 </div>
 </div>
+ <!–– Feedback PROBLEM TAGS Section -->
+ 
+<div id="wrong-feedback-2">
+<!–– Feedback PROBLEM TAGS Section -->
+
+
+        <h4 class='optional'>Optional Feedback</h4>
+
+        <img id='click-icon'>
+
+        <div class='tag-text'>
+          <h3>
+        <strong>Why</strong> was this difficult?
+      </h3>
+          <p>
+            Choose one or more tags
+          </p>
+        </div>
+
+        <br/>
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Hard-to-trace variables
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Too complex statements
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Not taught in class
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Poorly covered in class
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need more practice
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need additional help
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Unclear code
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Buggy code
+</div>
+
+<div class="# problem-tags">
+  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Time-consuming
+
+</div>
+</div>
+<div id="wrong-feedback-3">
+<!–– Feedback COMMENT Section -->
+
+        <h4 class='optional'>Optional Feedback</h4>
+
+        <img id='comment-icon'>
+
+        <div class='comment-text'>
+          <h3>
+          Is there anything else you want to tell your instructor about this question?
+        </h3>
+        </div>
+
+        <br/>
+
+        <textarea rows='10' cols='75' name="commentCorrect" rows="5" placeholder="Write any additional thoughts here."></textarea>
+
+
+</div>
+<div id='buttons'>
+   <button class='btn' id='more-feedback' onclick='nextSection()'>Share More</button>
+   <button class='btn' id='submit-btn' onclick='submitFeedback()' type="submit">Submit</button>
+   <p id='encouragement'>
+     <strong>Send your feedback and see a hint!</strong>
+   </p>
+   <br/>
+
+   <!–– Connect this link to the before feedback page -->
+   <!–– For this demo only clicking this link advances screens, due to JSFiddle button wackiness -->
+   <a href='#' onclick='previousSection()'>Back to Concepts</a>
+</div>
+<div id="hint">
+<div id='outer-container-border'>
+
+      <div id='hint-heading'>
+        <img id='information-icon'>
+
+        <div class="heading-text">
+          <b>Thank you</b> for your thoughts.
+<br>
+<br>
+<br>         
+        </div>
+        
+
+      </div>
+      <div id='inner-container-border'>
+
+      <div id='inner-heading'>
+        <img id='information-icon'>
+
+        <div class="heading-text">
+          <b>Hint</b>
+<br>
+<br>
+<br>      
+        </div>
+
+      </div>
+      <iframe style="width: 100%;" src="https://acos.cs.hut.fi/pitt/jsvee/jsvee-java/animation?example-id=ae_for_demo&lineRec=1&svc=masterygrids&grp=ADL&usr=dguerra&sid=TEST&cid=32"></iframe>
+      <!-- <p >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis condimentum nisl. Suspendisse vel vulputate nisi. Donec sit amet congue neque. Nullam tellus velit, vulputate vitae mi quis, gravida ultricies lectus.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis condimentum nisl. Suspendisse vel vulputate nisi. Donec sit amet congue neque. Nullam tellus velit, vulputate vitae mi quis, gravida ultricies lectus.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis condimentum nisl. Suspendisse vel vulputate nisi. Donec sit amet congue neque. Nullam tellus velit, vulputate vitae mi quis, gravida ultricies lectus.  
+      </p> -->
+      </div>
+      </div>
+      </div>
+
+
+
 <script>
+var visible_div = "before-feedback";
+
 // addEventListener support for IE8
    function bindEvent(element, eventName, eventHandler) {
        if (element.addEventListener){
@@ -197,17 +332,81 @@ for(String concept: conceptsInAppearanceOrder){
    	var message = e.data;
     if(message == "wrong"){
     	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
-    		$("#wrong-feedback").show( "slide", { direction: "right" }, "slow" );
+    		$("#wrong-feedback-1").show( "slide", { direction: "right" }, "slow" );
+    		$("#incorrect-heading").show( "slide", { direction: "right" }, "slow" );
+    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
+    		visible_div = "wrong-feedback-1";
     	});
     }
     if(message == "correct"){
     	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
-    		$("#correct-feedback").show( "slide", { direction: "right" }, "slow" );
+    		$("#correct-feedback-1").show( "slide", { direction: "right" }, "slow" );
+    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
+    		visible_div = "correct-feedback-1";
     	});
     	
     }
-   	//results.innerHTML = e.data;
+
    });
+  
+   function nextSection(){
+	    var index_visible_div = visible_div.lastIndexOf("-");
+	    if(index_visible_div!=-1){
+	    	var index_next_div = parseInt(visible_div.substr(index_visible_div+1,visible_div.length))+1;
+	    	if(index_next_div<=3){
+		    	var visible_div_type = visible_div.substr(0,index_visible_div);
+		    	var next_visible_div = visible_div_type+"-"+index_next_div;
+		    	console.log(next_visible_div);
+		    	$("#"+visible_div).hide( "slide", { direction: "left" }, "slow", function(){
+		    		$("#"+next_visible_div).show( "slide", { direction: "right" }, "slow" );
+		    		visible_div = next_visible_div;
+		    	});
+		    	if(index_next_div==3){
+		    		$("#more-feedback").prop('disabled', true);
+		    	}else{
+		    		$("#more-feedback").prop('disabled', false);
+		    	}
+	    	}/*else{
+	    		$("#"+visible_div).hide( "slide", { direction: "left" }, "slow", function(){
+		    		$("#hint").show( "slide", { direction: "right" }, "slow" );
+		    		visible_div = "hint";
+		    	});
+	    	}*/
+	    	
+	    } 
+   }
+   
+   function previousSection(){
+	    var index_visible_div = visible_div.lastIndexOf("-");
+	    if(index_visible_div!=-1){
+	    	var index_next_div = parseInt(visible_div.substr(index_visible_div+1,visible_div.length))-1;
+	    	var visible_div_type = visible_div.substr(0,index_visible_div);
+	    	var next_visible_div = visible_div_type+"-"+index_next_div;
+	    	$("#"+visible_div).hide( "slide", { direction: "right" }, "slow", function(){
+	    		$("#"+next_visible_div).show( "slide", { direction: "left" }, "slow" );
+	    		visible_div = next_visible_div;
+	    	});
+	    	if(index_next_div==3){
+	    		$("#more-feedback").prop('disabled', true);
+	    	}else{
+	    		$("#more-feedback").prop('disabled', false);
+	    	}
+	    	if(index_next_div==0){
+	    		$("#"+visible_div).hide( "slide", { direction: "right" }, "slow", function(){
+		    		$("#before-feedback").show( "slide", { direction: "left" }, "slow" );
+		    		visible_div = "before-feedback";
+		    	});
+	    	}
+	    } 
+   }
+   
+   function submitFeedback(){
+	   $("#buttons").hide( "slide", { direction: "left" }, "slow");
+	   $("#"+visible_div).hide( "slide", { direction: "left" }, "slow", function(){
+	   		$("#hint").show( "slide", { direction: "right" }, "slow" );
+	   		visible_div = "hint";
+   		});
+   }
    
 function selectConcept(checkbox){
 	var lines = checkbox.className.trim();
@@ -224,5 +423,9 @@ function selectConcept(checkbox){
 		document.getElementById(line).setAttribute("style", "background-color: none");
 		document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
 	}*/
+}
+
+function unselectConcept(checkbox){
+	sendMessage("mouseout");
 }
 </script>

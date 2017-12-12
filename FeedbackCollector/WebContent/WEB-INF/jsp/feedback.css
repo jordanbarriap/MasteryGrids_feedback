@@ -123,16 +123,44 @@
 /* Submitted Feedback */
 
 .selected-line{
-	background-color: red;
+	/*border: 0.5px solid gray;*/ background-color: #d6e0f5; /*padding: 0.5px; margin: 5px; float: left;*/ color: black;
 }
 
-div#correct-feedback{
+div#correct-feedback-1{
 	display: none;
 }
 
-div#wrong-feedback{
+div#correct-feedback-2{
 	display: none;
 }
+
+div#correct-feedback-3{
+	display: none;
+}
+
+div#wrong-feedback-1{
+	display: none;
+	width: 100%;
+}
+
+div#wrong-feedback-2{
+	display: none;
+	width: 100%;
+}
+
+div#wrong-feedback-3{
+	display: none;
+}
+
+div#wrong-concepts{
+	width: 100%;
+}
+
+div#buttons{
+	display: none;
+	width: 100%;
+}
+
 
 #incorrect-heading {
   background-color: #FDEEC8;
@@ -305,5 +333,51 @@ textarea {
   text-align: left;
   display: none;
 }
+
+/* Feedback Comment */
+
+#comment {
+  display: none;
+}
+
+#comment-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 0 10px;
+  display: inline-block;
+}
+
+.comment-text {
+  display: inline-block;
+}
+
+.comment-text h3 {
+  font-weight: 400;
+}
+
+textarea {
+  position: relative;
+  left: 100px;
+}
+
+/*CSS Hint section*/
+
+#hint{
+	display: none;
+}
+#hint-heading {
+  background-color: #e6f2ff;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+#outer-container-border {
+    border: 1px solid #cce6ff;
+}
+
+#incorrect-heading{
+	display: none;
+}
+
 
 
