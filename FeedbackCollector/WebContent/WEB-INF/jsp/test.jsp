@@ -55,69 +55,62 @@
 	//out.print("topic id "+topicID);
 	
 %>
- <!–– Feedback HEADING Section -->
-	<div id='incorrect-heading'>
-	  <img id='information-icon'>
-	
-	  <div class="heading-text">
-	    <h3>
-	        Need Help?	
-	    </h3>
-	    <h4>
-	      Share your thoughts on this problem to <span class='highlight'>get a hint</span>
-	    </h4>
-	  </div>
-	
-	</div>
-<br/>
 <div id="before-feedback">
-<div id="before-explanation">
-<!-- 		An icon goes here.
- -->		
-	<label>
-		In this quiz, you will practice the following concepts. Please check
-		any concepts to see the corresponding lines of codes.
-	</label>
-</div>
-<br/>
 <div id="before-concepts">
-			<!-- TO DO: Connect these checkboxes to the concepts in the question and highlight the corresponding code -->
-<%
-		String query2 = "SELECT * FROM webex21.rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"' and r.concept not in (SELECT D.concept FROM aggregate.ent_topic as A inner join aggregate.rel_topic_content as B on A.topic_id = B.topic_id inner join aggregate.ent_content as C on B.content_id = C.content_id inner join webex21.ent_jquiz_concept as D on C.content_name = D.title where C.content_type ='question' and A.course_id = '"+courseID+"' and A.topic_id < '"+topicID+"')";
-		//String query2 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'";      
-        
-		rs2 = statement.executeQuery(query2);
-        
-        ArrayList<String> conceptsInAppearanceOrder = new ArrayList<String>();
-        
-        while (rs2.next()) {
-           String concept = rs2.getString("concept");
-           String line = rs2.getString("sline");
-           System.out.println(concept);
-           System.out.println(line);
-           if(!conceptMap.containsKey(concept)){
-        	   conceptsInAppearanceOrder.add(concept);
-        	   ArrayList<String> linesList = new ArrayList<String>();
-        	   linesList.add(line);
-        	   conceptMap.put(concept, linesList);
-           }else{
-        	   ArrayList<String> currentLinesList = conceptMap.get(concept);
-        	   currentLinesList.add(line);
-        	   conceptMap.put(concept, currentLinesList);
-           } 
-        }
-        for(String concept: conceptsInAppearanceOrder){
-        	ArrayList<String> lineList = conceptMap.get(concept);
-        	System.out.println(concept);
-        	System.out.println(Arrays.toString(lineList.toArray()));
-        	String lineClasses = "";
-        	for (int i=0; i<lineList.size(); i++){
-        		lineClasses = lineClasses + "line"+ lineList.get(i) + " ";
-        	}
-        	//out.print("<input class='concepts-checkbox "+lineClasses+"' type='checkbox' value='"+lineClasses+"' onclick='checkConcept(this)'><span id="+concept+">"+concept+"</span>");
-        	out.print("<div class='concept-tag'><span id="+concept+" class='concept "+lineClasses+"' onmouseover='selectConcept(this)' onmouseout='unselectConcept(this)'>"+concept+"&emsp;</span><span class='glyphicon glyphicon-question-sign'></span><span onclick='changeColor(this)' class='glyphicon glyphicon-ok-sign glyph-check'></span></div>");
-        }
-        %>
+<div id="outer-container-border">
+<div id='before-heading'>
+<img id='information-icon' src="./img/pen.png">
+<div class="heading-text">
+<h4> In this quiz, you will practice the following concepts: </h3> 
+<h5> (Mouseover a concept in order to highlight the code sections that cover it) </h5> 
+</div> </div> <!–– Feedback CONCEPT Section --> 
+<div id="concept">
+<div class='concept-group'> 
+<!-- TO DO: Connect these checkboxes to the concepts in the question and highlight the corresponding code --> 
+<% String query2 = "SELECT * FROM webex21.rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"' and r.concept not in (SELECT D.concept FROM aggregate.ent_topic as A inner join aggregate.rel_topic_content as B on A.topic_id = B.topic_id inner join aggregate.ent_content as C on B.content_id = C.content_id inner join webex21.ent_jquiz_concept as D on C.content_name = D.title where C.content_type ='question' and A.course_id = '"+courseID+"' and A.topic_id < '"+topicID+"')"; 
+//String query2 = "SELECT * FROM rel_content_concept r, ent_jquiz e WHERE r.title=e.title and e.QuizID = '"+quizID+"'"; 
+rs2 = statement.executeQuery(query2); 
+ArrayList<String> conceptsInAppearanceOrder = new ArrayList<String>(); 
+while (rs2.next()) { 
+	String text = rs2.getString("concept");
+    String concept = text.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+    
+	ArrayList<String> arrlist = new ArrayList<String>(5);
+	arrlist.add("Expression");
+	arrlist.add("Statement");
+	arrlist.add("Specifier");
+	
+	
+	String[] words = concept.split("\\s+"); 
+	for (String word : words) {
+	   if(arrlist.contains(word))
+	   {
+	       concept = concept.replace(word,"");
+	   }
+	}
+	String line = rs2.getString("sline");
+	if(!conceptMap.containsKey(concept)){ conceptsInAppearanceOrder.add(concept); 
+		ArrayList<String> linesList = new ArrayList<String>(); linesList.add(line); 
+		conceptMap.put(concept, linesList);
+	}else{ 
+		ArrayList<String> currentLinesList = conceptMap.get(concept); 
+		currentLinesList.add(line); 
+		conceptMap.put(concept, currentLinesList); 
+	}
+} 
+for(String concept: conceptsInAppearanceOrder){ 
+	ArrayList<String> lineList = conceptMap.get(concept); 
+	System.out.println(Arrays.toString(lineList.toArray())); 
+	String lineClasses = ""; 
+	for (int i=0; i<lineList.size(); i++){ 
+		lineClasses = lineClasses + "line"+ lineList.get(i) + " "; 
+	} //out.print("<input class='concepts-checkbox "+lineClasses+"' type='checkbox' value='"+lineClasses+"' onclick='checkConcept(this)'><span id="+concept+">"+concept+"</span>"); 
+	
+	out.print("<div class='# concept-tag'><span id="+concept+" class='concept "+lineClasses+"' onmouseover='selectConcept(this)' onmouseout='unselectConcept(this)'>"+concept+"&emsp;&emsp;</span><span class='glyphicon glyphicon-question-sign'></span>&emsp;<span onclick='changeColor(this)' class='glyphicon glyphicon-ok-sign glyph-check'></span></div>");
+	} %> 
+			</div> 
+		</div> 
+	</div> 
 </div>
 </div>
 <div id="correct-feedback-1">
@@ -136,15 +129,56 @@
    	  rs2 = statement.executeQuery(query2);
       
       while (rs2.next()) {
-   	   out.print("<input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'><span class="+rs2.getString("sline")+">"+rs2.getString("concept") +"</span>");
+       String text = rs2.getString("concept");
+       String concept = text.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+       
+		ArrayList<String> arrlist = new ArrayList<String>(5);
+		arrlist.add("Expression");
+		arrlist.add("Statement");
+		arrlist.add("Specifier");
+		
+		
+		String[] words = concept.split("\\s+"); 
+		for (String word : words) {
+		   if(arrlist.contains(word))
+		   {
+		       concept = concept.replace(word,"");
+		   }
+		}
+   	   out.print("<input class='concepts-checkbox line"+rs2.getString("sline")+"' type='checkbox' value='line"+rs2.getString("sline")+"' onclick='checkConcept(this)'><span class="+rs2.getString("sline")+">"+concept+"</span>");
       }
 %>
 </div>
 </div>
-<div id="wrong-feedback-1">
-<div id="incorrect-concept">
+      <div id="wrong-feedback-1">
 
-            <img id="question-icon">
+<div id="outer-container-border">
+
+
+
+      <div id='incorrect-heading'>
+        <img id='information-icon' src="./img/icon_share.png">
+
+        <div class="heading-text">
+          <h3>
+          Share your thoughts
+          </h3>
+          <h5 style="color:green;">
+                    Get a hint afterwards!
+
+          </h5>
+          
+        </div>
+
+      </div>
+
+      <div id="concept">
+
+        <div>
+
+          <div id="incorrect-concept">
+
+            <img id="question-icon" src="./img/question.png">
 
             <div class='concept-text'>
               <h3>
@@ -157,8 +191,10 @@
 
 
             <br/>
-</div>
-<div id="wrong-concepts">
+
+            <div class='concept-group'>
+            
+              
 <%
 for(String concept: conceptsInAppearanceOrder){
 	ArrayList<String> lineList = conceptMap.get(concept);
@@ -168,21 +204,42 @@ for(String concept: conceptsInAppearanceOrder){
 	for (int i=0; i<lineList.size(); i++){
 		lineClasses = lineClasses + "line"+ lineList.get(i) + " ";
 	}
-	//out.print("<input class='concepts-checkbox "+lineClasses+"' type='checkbox' value='"+lineClasses+"' onclick='checkConcept(this)'><span id="+concept+">"+concept+"</span>");
-	out.print("<div class='concept-tag'><input type='checkbox'><span id="+concept+" class='concept "+lineClasses+"'onmouseover='selectConcept(this)'>"+concept+"</span></div>");
+	out.print("<div class='# concept-tag'><input type='checkbox' class='concept-checkbox' onclick='clickConcept(this)'><span id="+concept+" class='concept "+lineClasses+"' onmouseover='selectConcept(this)' onmouseout='unselectConcept(this)''>&emsp;"+concept+"</span></div>");
 }
 %>
+             
+            </div>
+            </div>
+
+            <br/>
+          
+          </div>
+        </div> 
 </div>
-</div>
- <!–– Feedback PROBLEM TAGS Section -->
- 
+
+
+</div> 
 <div id="wrong-feedback-2">
 <!–– Feedback PROBLEM TAGS Section -->
+ <div id="outer-container-border">
+      <div id='incorrect-heading'>
+        <img id='information-icon' src="./img/icon_share.png">
 
+        <div class="heading-text">
+          <h3>
+          Share your thoughts
+          </h3>
+          <h5 style="color:green;">
+                    Get a hint afterwards!
 
+          </h5>
+          
+        </div>
+
+      </div>
         <h4 class='optional'>Optional Feedback</h4>
 
-        <img id='click-icon'>
+        <img id='question-icon' src="./img/question.png">
 
         <div class='tag-text'>
           <h3>
@@ -194,42 +251,49 @@ for(String concept: conceptsInAppearanceOrder){
         </div>
 
         <br/>
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Hard-to-trace variables
-</div>
+        
+        <div class='tag-group'>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Too complex statements
-</div>
+        <!–– Example divs, to be replaced with actual tags -->
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Not taught in class
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Hard-to-trace variables
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Poorly covered in class
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Too complex statements
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need more practice
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Not taught in class
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need additional help
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Poorly covered in class
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Unclear code
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need more practice
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Buggy code
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Need additional help
+        </div>
 
-<div class="# problem-tags">
-  <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Time-consuming
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Unclear code
+        </div>
 
-</div>
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Buggy code
+        </div>
+
+        <div class="# problem-tags">
+          <input class='tags-checkbox line#' type='checkbox' value='tagID' onclick='checkConcept(this)'> Time-consuming
+        </div>
+      </div>
+      </div>
+
 </div>
 <div id="wrong-feedback-3">
 <!–– Feedback COMMENT Section -->
@@ -305,9 +369,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis condimentu
 
 
 <script>
-var visible_div = "before-feedback";
-
-// addEventListener support for IE8
+	var visible_div = "before-feedback";
+	$('.glyph-check').click(function() { $(this).parent().toggleClass('green'); });
+	$('.glyphicon-question-sign').click(function() { $(this).parent().toggleClass('red'); });
+	
+	// addEventListener support for IE8
    function bindEvent(element, eventName, eventHandler) {
        if (element.addEventListener){
            element.addEventListener(eventName, eventHandler, false);
@@ -330,22 +396,37 @@ var visible_div = "before-feedback";
    // Listen to message from child window
    bindEvent(window, 'message', function (e) {
    	var message = e.data;
-    if(message == "wrong"){
-    	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
-    		$("#wrong-feedback-1").show( "slide", { direction: "right" }, "slow" );
-    		$("#incorrect-heading").show( "slide", { direction: "right" }, "slow" );
-    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
-    		visible_div = "wrong-feedback-1";
-    	});
-    }
-    if(message == "correct"){
-    	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
-    		$("#correct-feedback-1").show( "slide", { direction: "right" }, "slow" );
-    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
-    		visible_div = "correct-feedback-1";
-    	});
-    	
-    }
+   	var message_array = message.split(" ");
+   	if(message_array.length<2){
+   		if(message == "wrong"){
+   	    	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
+   	    		$("#wrong-feedback-1").show( "slide", { direction: "right" }, "slow" );
+   	    		$("#incorrect-heading").show( "slide", { direction: "right" }, "slow" );
+   	    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
+   	    		visible_div = "wrong-feedback-1";
+   	    	});
+   	    }
+   	    if(message == "correct"){
+   	    	$("#before-feedback").hide( "slide", { direction: "left" }, "slow", function(){
+   	    		$("#correct-feedback-1").show( "slide", { direction: "right" }, "slow" );
+   	    		$("#buttons").show( "slide", { direction: "right" }, "slow" );
+   	    		visible_div = "correct-feedback-1";
+   	    	});	
+   	    }
+   	}else{
+   		var action = message_array[0];
+   		if(action == "select"){
+   			for(var i=1; i<message_array.length;i++){
+   				$("span."+message_array[i]).parent().addClass("permanent-selected-tag");
+   			}
+   		}
+   		if(action == "unselect"){
+   			for(var i=1; i<message_array.length;i++){
+   				$("span."+message_array[i]).parent().removeClass("permanent-selected-tag");
+   			}
+   		}
+   	}
+    
 
    });
   
@@ -392,6 +473,7 @@ var visible_div = "before-feedback";
 	    		$("#more-feedback").prop('disabled', false);
 	    	}
 	    	if(index_next_div==0){
+	    		$("#buttons").hide( "slide", { direction: "right" }, "slow");
 	    		$("#"+visible_div).hide( "slide", { direction: "right" }, "slow", function(){
 		    		$("#before-feedback").show( "slide", { direction: "left" }, "slow" );
 		    		visible_div = "before-feedback";
@@ -408,24 +490,50 @@ var visible_div = "before-feedback";
    		});
    }
    
-function selectConcept(checkbox){
-	var lines = checkbox.className.trim();
-	var linesArray = lines.split(" ");
-	sendMessage(lines);
-	/* for (var i= 1; i<linesArray.length; i++){
-		$("#act-frame").contents().find(".line."+linesArray[i]).addClass("selected-line");
-	} */
-	/*if(checkbox.checked){
-		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
-		console.log(document.getElementsByClassName("line-checkbox "+line)[0]);
-		document.getElementsByClassName("line-checkbox "+line)[0].checked=true;
-	}else{
-		document.getElementById(line).setAttribute("style", "background-color: none");
-		document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
-	}*/
-}
-
-function unselectConcept(checkbox){
-	sendMessage("mouseout");
-}
+	function selectConcept(checkbox){
+		var lines = checkbox.className.trim();
+		var linesArray = lines.split(" ");
+		sendMessage(lines);
+		/* for (var i= 1; i<linesArray.length; i++){
+			$("#act-frame").contents().find(".line."+linesArray[i]).addClass("selected-line");
+		} */
+		/*if(checkbox.checked){
+			document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
+			console.log(document.getElementsByClassName("line-checkbox "+line)[0]);
+			document.getElementsByClassName("line-checkbox "+line)[0].checked=true;
+		}else{
+			document.getElementById(line).setAttribute("style", "background-color: none");
+			document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
+		}*/
+	}
+	
+	function clickConcept(checkbox){
+		console.log($(checkbox));
+		$(checkbox).parent().toggleClass("selected-tag");
+		console.log($(checkbox).parent().find("span"));
+		var lines = $(checkbox).parent().find("span").attr("class").trim();
+		console.log(lines);
+		lines = lines.substr(lines.indexOf(" ")+1,lines.length);
+		console.log(lines);
+		sendMessage("click "+lines);
+		/* for (var i= 1; i<linesArray.length; i++){
+			$("#act-frame").contents().find(".line."+linesArray[i]).addClass("selected-line");
+		} */
+		/*if(checkbox.checked){
+			document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
+			console.log(document.getElementsByClassName("line-checkbox "+line)[0]);
+			document.getElementsByClassName("line-checkbox "+line)[0].checked=true;
+		}else{
+			document.getElementById(line).setAttribute("style", "background-color: none");
+			document.getElementsByClassName("line-checkbox "+line)[0].checked=false;
+		}*/
+	}
+	
+	function unselectConcept(checkbox){
+		sendMessage("mouseout");
+	}
+	
+	
+	
+	
 </script>

@@ -1,5 +1,9 @@
 /* CSS3 HERE */
 
 .selected-line{
-	/*border: 0.5px solid gray;*/ background-color: #d6e0f5; /*padding: 0.5px; margin: 5px; float: left;*/ float: left; color: black;
+	/*border: 0.5px solid gray;*/ background-color: #a8c6fa; /*#d6e0f5; padding: 0.5px; margin: 5px; float: left;*/ color: black;
+}
+
+.permanent-selected-line{
+	background-color: #a8c6fa;	
 }

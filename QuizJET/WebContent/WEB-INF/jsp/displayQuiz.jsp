@@ -315,7 +315,7 @@ if (request.getParameter("svc").indexOf("subproblem") >= 0){
 
 <script language="JavaScript">
 
-function checkLine(checkbox){
+/*function checkLine(checkbox){
 	var line = checkbox.value;
 	if(checkbox.checked){
 		document.getElementById(line).setAttribute("style", "background-color: #ffb3b3");
@@ -326,7 +326,7 @@ function checkLine(checkbox){
 		document.getElementsByClassName("concepts-checkbox "+line)[0].checked=false;
 		
 	}
-}
+}*/
 
 /* function checkConcept(checkbox){
 	var line = checkbox.value;

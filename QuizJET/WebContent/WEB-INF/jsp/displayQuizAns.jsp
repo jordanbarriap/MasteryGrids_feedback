@@ -16,6 +16,9 @@
 
 <link href="quizjet.css" rel="stylesheet" type="text/css" />
 <link href="tab.css" rel="stylesheet" type="text/css" />
+<link href="feedback.css" rel="stylesheet" type="text/css" />
+<SCRIPT type="text/javascript" src="tab.js"></SCRIPT>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <SCRIPT type="text/javascript">
 
 /* 
@@ -81,8 +84,27 @@ var sendMessage = function (msg) {
     messageButton = document.getElementById('message_button');*/
 // Listen to messages from parent window
 bindEvent(window, 'message', function (e) {
-    //results.innerHTML = e.data;
-    console.log(e.data);
+	var message = e.data.trim();
+	var stringArray = message.split(" ");
+	if(stringArray.length>1){
+		var action = stringArray[0];
+		if(action == "concept"){
+			for(var i=1;i<stringArray.length;i++){
+				var highlightedLine = stringArray[i];
+				$("#"+highlightedLine).addClass("selected-line");
+			}
+		}
+		if(action == "click"){
+			for(var i=1;i<stringArray.length;i++){
+				var highlightedLine = stringArray[i];
+				$("#"+highlightedLine).addClass("permanent-selected-line");
+			}
+		}
+	}else{
+		if (message == "mouseout"){
+			$(".selected-line").removeClass("selected-line");
+		}
+	}
 });
 // Send random message data on every button click
 /*bindEvent(messageButton, 'click', function (e) {
@@ -280,6 +302,7 @@ tabPane.addTabPage( document.getElementById( "intro-page" ) );
 	         }         */
 	         
       	  //out.println(codeStr + "");
+	         
         String[] lines = codeStr.split("\n");
          String checkboxLines = "";
          for(int i=0;i<lines.length-1;i++){
@@ -552,6 +575,22 @@ result = "0";
 
  
 <script language="JavaScript">
+
+function checkLine(checkbox){
+	var line = checkbox.value;
+	if(checkbox.checked){
+		$("#"+line).addClass("permanent-selected-line");
+		//document.getElementsByClassName("concepts-checkbox "+line)[0].checked=true;
+		sendMessage("select "+line);
+		
+	}else{
+		$("#"+line).removeClass("permanent-selected-line");
+		sendMessage("unselect "+line);
+		//document.getElementsByClassName("concepts-checkbox "+line)[0].checked=false;
+		
+	}
+}
+
 <!-- 
 //hy: add "date"
 function submitFunction(obj,i){//}, functionName) {
